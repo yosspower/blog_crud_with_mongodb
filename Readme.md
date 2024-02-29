@@ -38,7 +38,7 @@ node app.js or nodemon (if you have installed it)
 - `middleware/errHandler.js`: Error handling middleware.
 - `middleware/isAuth.js`: middleware for redirecting authentificated users back to profile .
 - `middleware/ensureToken.js`: middleware for stopping non-authentificated  users from accessing routes that require authentication.
-- `middleware/log.js`: Logging middleware.
+- `middleware/log.js`: Log middleware that logs  each request to the log.md file with the specific user.
 - `middleware/pageNotFound.js`: Middleware for handling 404 errors.
 - `routes/loginRoutes.js`: login routes.
 - `routes/registerRoutes.js`: register Routes.
