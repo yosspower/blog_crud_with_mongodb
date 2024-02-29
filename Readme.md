@@ -21,7 +21,7 @@ node app.js or nodemon (if you have installed it)
 
 2. The server will be running at `http://localhost:3000` by default.
 
-3.go to /register and enter your information so you can get the jwt token generated or /login if you already have an account 
+3.go to /register and enter your information so you can get the jwt token generated or /login if you already have an account
 
 4. You can perform CRUD operations using the following endpoints:
 
@@ -37,16 +37,11 @@ node app.js or nodemon (if you have installed it)
 - `controllers/userController.js`: Controller functions for handling user authentification systeme.
 - `middleware/errHandler.js`: Error handling middleware.
 - `middleware/isAuth.js`: middleware for redirecting authentificated users back to profile .
-- `middleware/ensureToken.js`: middleware for stopping non-authentificated  users from accessing routes that require authentication.
-- `middleware/log.js`: Log middleware that logs  each request to the log.md file with the specific user.
+- `middleware/ensureToken.js`: middleware for stopping non-authentificated users from accessing routes that require authentication.
+- `middleware/log.js`: Log middleware that logs each request to the log.md file with the specific user.
 - `middleware/pageNotFound.js`: Middleware for handling 404 errors.
 - `routes/loginRoutes.js`: login routes.
 - `routes/registerRoutes.js`: register Routes.
 - `routes/postRoutes.js`: post Routes(protected by ensureToken middleware).
 - `medels/User.js`:User model.
 - `medels/Post.js`: Post model.
-
-
-
-
-

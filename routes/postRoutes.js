@@ -3,19 +3,21 @@
 const express = require("express");
 const Router = express.Router();
 const fs = require("fs");
-const { show, add, update, remove ,profile} = require("../controllers/postController");
+const {
+  show,
+  add,
+  update,
+  remove,
+  profile,
+} = require("../controllers/postController");
 const errHandler = require("../middleware/errHandler.js");
 const notFound = require("../middleware/pageNotFound.js");
 
 const ensureToken = require("../middleware/ensureToken");
 
+Router.use(ensureToken);
 
-
-Router.use(ensureToken)
-
-
-
-Router.get("/",profile);
+Router.get("/", profile);
 
 Router.route("/posts").get(show).post(add);
 
