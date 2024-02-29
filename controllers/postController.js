@@ -1,38 +1,101 @@
-const {
-  getAllPosts,
-  createPost,
-  updatePost,
-  deletePost,
-} = require("../models/post");
-
-function show(req, res) {
-  res.send(getAllPosts());
+const Post = require("../models/Post");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
+const secret_key = "enji122u3u31g12tf21f31";
+async function getUser(email){
+ const user = await User.findOne({ email: email });
+ return user;
 }
-function add(req, res) {
-  let post = req.body;
-  if (post.title && post.content && post.author) {
-    createPost(req.body);
-    res.send("new Post Added succesfully");
-  } else {
-    res.send(
-      "make sure you sent all the informations  (title , content and author) ",
-    );
+async function allPosts(req,res){
+const posts = await Post.find();
+
+let output = "<h1>ALL POSTS</h1>\n";
+posts.forEach((post) => {
+  output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n <strong>PostId :</strong>${post._id} <hr>`;
+});
+
+return res.send(output);
+
+}
+async function show(req, res) {
+const user = await getUser(req.userEmail);
+  Post.find({userId:user._id})
+    .then((posts) => {
+      let output = "<h1>YOUR POSTS</h1>\n";
+      posts.forEach((post, indx) => {
+        output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n <strong>PostId :</strong>${post._id} <hr>`;
+      });
+      res.send(output);
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+}
+async function profile(req, res){
+  console.log("i am in profile");
+const user = await getUser(req.userEmail);
+res.send(user);
+}
+async function add(req, res) {
+  try{
+const user = await getUser(req.userEmail);
+ 
+  const newPost = new Post({
+    title: req.body.title,
+    content: req.body.content,
+    userId: user._id,
+  });
+
+  newPost
+    .save()
+    .then((user) => {
+      res.send("Post added succesfully");
+    })
+    .catch((err) => {
+      res.send(err.message);
+    });
+  }catch{
+    res.status(401).json({msg:"You are not logged in"});
   }
 }
-function update(req, res) {
-  if (updatePost(req.body, req.params.id)) {
-    res.send("post updated succesfully");
-  } else {
-    res.send("this post does not exists");
-  }
+async function update(req, res) {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const user =await getUser(req.userEmail);
+  Post.findOneAndUpdate(
+    { _id: id ,userId : user._id},
+    {
+      $set: {
+        title: title,
+        content: content,
+      },
+    },
+  )
+    .then((post) => {
+      res.send("post Updated! " + post._id);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send("Cannot Update this  post!");
+    });
 }
 
-function remove(req, res) {
-  if (deletePost(req.params.id)) {
-    res.send("post deleted succesfully");
-  } else {
-    res.send("this post does not exists");
-  }
+async function remove(req, res) {
+  const { id } = req.params;
+  const user =await getUser(req.userEmail);
+
+  Post.findOneAndDelete({ _id: id,userId : user._id })
+    .then((post) => {
+      if (post) {
+        return res.send("post deleted! id: " + post._id);
+      }
+
+      return res.status(400).send("Cannot delete this  post!");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send(err.message);
+    });
 }
 
-module.exports = { show, add, update, remove };
+module.exports = { show, add, update, remove,profile,allPosts };
