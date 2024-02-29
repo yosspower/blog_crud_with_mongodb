@@ -1,4 +1,4 @@
-# Simple CRUD Application with Express.js and JSON
+# Simple CRUD Application with Express.js and MONGODB
 
 ## Installation
 
