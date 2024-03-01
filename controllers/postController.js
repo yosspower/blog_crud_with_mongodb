@@ -87,7 +87,7 @@ async function update(req, res) {
         return res.send("post Updated! " + post._id);
       })
       .catch((err) => {
-        console.log(err);
+       
         return res.status(400).send("Cannot Update this  post!");
       });
   } else {
@@ -133,7 +133,7 @@ async function remove(req, res) {
         return res.status(400).send("Cannot delete this  post!");
       })
       .catch((err) => {
-        console.log(err);
+   
         res.status(400).send(err.message);
       });
   } else {
@@ -146,7 +146,7 @@ async function remove(req, res) {
         return res.status(400).send("Cannot delete this  post!");
       })
       .catch((err) => {
-        console.log(err);
+       
         res.status(400).send(err.message);
       });
   }
