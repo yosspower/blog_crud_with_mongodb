@@ -119,20 +119,32 @@ async function remove(req, res) {
           content: content,
         },
       },
-    );
-  }
-  Post.findOneAndDelete({ _id: id, userId: user._id })
-    .then((post) => {
-      if (post) {
-        return res.send("post deleted! id: " + post._id);
-      }
+    )
+      .then((post) => {
+        if (post) {
+          return res.send("post deleted! id: " + post._id);
+        }
 
-      return res.status(400).send("Cannot delete this  post!");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send(err.message);
-    });
+        return res.status(400).send("Cannot delete this  post!");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send(err.message);
+      });
+  } else {
+    Post.findOneAndDelete({ _id: id, userId: user._id })
+      .then((post) => {
+        if (post) {
+          return res.send("post deleted! id: " + post._id);
+        }
+
+        return res.status(400).send("Cannot delete this  post!");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send(err.message);
+      });
+  }
 }
 
 module.exports = { show, add, update, remove, profile, allPosts };
