@@ -60,10 +60,10 @@ async function add(req, res) {
         res.send("Post added succesfully");
       })
       .catch((err) => {
-        res.send(err.message);
+        res.status(401).json({ message: err.message });
       });
-  } catch {
-    res.status(401).json({ msg: "You are not logged in" });
+  } catch (err) {
+    res.status(401).json({ msg: err.message });
   }
 }
 async function update(req, res) {
