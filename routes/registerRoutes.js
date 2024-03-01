@@ -24,10 +24,12 @@ router.post(
       .withMessage("name must be between 4 and 20 characters")
       .trim()
       .notEmpty(),
-    body("age")
-      .isNumeric()
-      .isLength({ max: 99, min: 1 })
-      .withMessage("Age must be number  from 1 to 99"),
+    body("password")
+      .isString()
+      .withMessage("password field must be a string")
+      .isLength({ min: 4, max: 8 })
+      .withMessage("name must be between 4 and 8 characters")
+      .trim(),
   ],
   register,
 );

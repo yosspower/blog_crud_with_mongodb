@@ -11,10 +11,22 @@ router.use(express.urlencoded({ extended: true }));
 // /login :post methode
 router.post(
   "/",
-  [body("email").isEmail().withMessage("this field should be a EMAIL").trim()],
+  [
+    body("email")
+      .isEmail()
+      .withMessage("this field should be a EMAIL")
+      .trim()
+      .escape(),
+    body("password")
+      .isString()
+      .withMessage("this field must be a string")
+      .isLength({ min: 4, max: 8 })
+      .withMessage("password must be between 4 and 8 caracters")
+      .trim(),
+  ],
   login,
 );
 // /login :get methode
-router.get("/page", loginPage);
+router.get("/", loginPage);
 
 module.exports = router;

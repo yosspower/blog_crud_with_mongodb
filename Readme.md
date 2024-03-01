@@ -7,7 +7,7 @@
 
 2. Navigate to the project directory:
 
-   cd <project_directory>
+   cd blog_project
 
 3. Install dependencies:
 

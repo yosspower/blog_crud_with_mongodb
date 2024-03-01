@@ -2,6 +2,7 @@ const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const secret_key = "enji122u3u31g12tf21f31";
+
 async function getUser(email) {
   const user = await User.findOne({ email: email });
   return user;
@@ -18,8 +19,13 @@ async function allPosts(req, res) {
 }
 async function show(req, res) {
   const user = await getUser(req.userEmail);
+  if (user.role == "admin") {
+  }
   Post.find({ userId: user._id })
     .then((posts) => {
+      if (posts.length <= 0) {
+        return res.status(404).send("No posts posted yet!!.");
+      }
       let output = "<h1>YOUR POSTS</h1>\n";
       posts.forEach((post, indx) => {
         output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n <strong>PostId :</strong>${post._id} <hr>`;
@@ -31,9 +37,12 @@ async function show(req, res) {
     });
 }
 async function profile(req, res) {
-  console.log("i am in profile");
-  const user = await getUser(req.userEmail);
-  res.send(user);
+  try {
+    const user = await getUser(req.userEmail);
+    res.send(`welcome ${user.name} role : ${user.role}`);
+  } catch {
+    res.send("server Error !");
+  }
 }
 async function add(req, res) {
   try {
@@ -59,30 +68,59 @@ async function add(req, res) {
 }
 async function update(req, res) {
   const { id } = req.params;
-  const { title, content } = req.body;
+  const { title, content, role } = req.body;
   const user = await getUser(req.userEmail);
-  Post.findOneAndUpdate(
-    { _id: id, userId: user._id },
-    {
-      $set: {
-        title: title,
-        content: content,
+  if (user.role !== "admin") {
+    Post.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          title: title,
+          content: content,
+        },
       },
-    },
-  )
-    .then((post) => {
-      res.send("post Updated! " + post._id);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).send("Cannot Update this  post!");
-    });
+    )
+      .then((post) => {
+        return res.send("post Updated! " + post._id);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(400).send("Cannot Update this  post!");
+      });
+  } else {
+    Post.findOneAndUpdate(
+      { _id: id, userId: user._id },
+      {
+        $set: {
+          title: title,
+          content: content,
+        },
+      },
+    )
+      .then((post) => {
+        return res.send("post Updated! " + post._id);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(400).send("Cannot Update this  post!");
+      });
+  }
 }
 
 async function remove(req, res) {
   const { id } = req.params;
   const user = await getUser(req.userEmail);
-
+  if (user.role !== "admin") {
+    Post.findOneAndDelete(
+      { _id: id },
+      {
+        $set: {
+          title: title,
+          content: content,
+        },
+      },
+    );
+  }
   Post.findOneAndDelete({ _id: id, userId: user._id })
     .then((post) => {
       if (post) {
