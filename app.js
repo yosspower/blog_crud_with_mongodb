@@ -3,14 +3,13 @@ const loginRouter = require("./routes/loginRoutes");
 const registerRouter = require("./routes/registerRoutes");
 const postRouter = require("./routes/postRoutes");
 const { allPosts } = require("./controllers/postController.js");
-require("./src/database");
+const Connect = require("./src/database");
 const log = require("./middleware/log.js");
-
 const app = express();
 const port = 3000;
 const jwt = require("jsonwebtoken");
 const secret_key = "enji122u3u31g12tf21f31";
-
+Connect();
 app.use(express.json());
 app.use(log);
 app.use("/login", loginRouter);

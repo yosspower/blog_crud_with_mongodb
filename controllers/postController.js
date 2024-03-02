@@ -9,7 +9,7 @@ async function getUser(email) {
 }
 async function allPosts(req, res) {
   const posts = await Post.find();
-const user = await getUser(req.userEmail);
+  const user = await getUser(req.userEmail);
   let output = "<h1>ALL POSTS</h1>\n";
   posts.forEach((post) => {
     output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n <strong>User :</strong>${user.name} <hr>`;
@@ -26,9 +26,8 @@ async function show(req, res) {
         return res.status(404).send("No posts posted yet!!.");
       }
       let output = "<h1>YOUR POSTS</h1>\n";
-   
-      posts.forEach((post, indx) => {
 
+      posts.forEach((post, indx) => {
         output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n <strong>User :</strong>${user.email} <hr>`;
       });
       res.send(output);
@@ -73,7 +72,6 @@ async function update(req, res) {
   const user = await getUser(req.userEmail);
 
   if (user.role == "admin") {
-  
     Post.findOneAndUpdate(
       { _id: id },
       {
@@ -87,11 +85,9 @@ async function update(req, res) {
         return res.send("post Updated! " + post._id);
       })
       .catch((err) => {
-       
-        return res.status(400).send("Cannot Update this  post!");
+        return res.status(400).send(err.message);
       });
   } else {
-
     Post.findOneAndUpdate(
       { _id: id, userId: user._id },
       {
@@ -105,11 +101,9 @@ async function update(req, res) {
         return res.send("post Updated! " + post._id);
       })
       .catch((err) => {
-       
         return res.status(400).send("Cannot Update this  post!");
       });
   }
-
 }
 
 async function remove(req, res) {
@@ -133,7 +127,6 @@ async function remove(req, res) {
         return res.status(400).send("Cannot delete this  post!");
       })
       .catch((err) => {
-   
         res.status(400).send(err.message);
       });
   } else {
@@ -146,7 +139,6 @@ async function remove(req, res) {
         return res.status(400).send("Cannot delete this  post!");
       })
       .catch((err) => {
-       
         res.status(400).send(err.message);
       });
   }

@@ -21,10 +21,12 @@ node app.js or nodemon (if you have installed it)
 
 2. The server will be running at `http://localhost:3000` by default.
 
-3.go to /register and enter your information so you can get the jwt token generated or /login if you already have an account
+3.go to `/register` and enter your information so you can get the jwt token generated or `/login` if you already have an account
 
-4. You can perform CRUD operations using the following endpoints:
+4. copy the generated token in postman header and send a request to any `/profile` prefixed url protected by ensureToken middleware
 
+5. You can perform CRUD operations using the following endpoints:
+   - `GET /profile`:profile page that displays all posts posted by user.
    - `GET profile/posts`: Retrieve all posts.
    - `POST profile/posts`: Create a new post.
    - `PUT profile/posts/:id`: Update an existing post.
