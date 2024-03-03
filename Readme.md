@@ -13,6 +13,12 @@
 
    npm install
 
+## Roles
+
+1. **Admin** - can create, read, update & delete every post .
+2. **User** - can read all posts and can only update and delete their own posts and add new ones.
+3. **Quest** - have only read access for all posts
+
 ## Usage
 
 1. Start the server:
