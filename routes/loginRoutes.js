@@ -14,7 +14,7 @@ router.post(
   [
     body("email")
       .isEmail()
-      .withMessage("this field should be a EMAIL")
+      .withMessage("this field should be a valid email")
       .trim()
       .escape(),
     body("password")
@@ -22,7 +22,8 @@ router.post(
       .withMessage("this field must be a string")
       .isLength({ min: 4, max: 8 })
       .withMessage("password must be between 4 and 8 caracters")
-      .trim(),
+      .trim()
+      .escape()
   ],
   login,
 );

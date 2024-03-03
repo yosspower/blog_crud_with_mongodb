@@ -1,6 +1,6 @@
 const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const User = require("../models/User");
 const secret_key = "enji122u3u31g12tf21f31";
 
 async function getUser(email) {

@@ -21,6 +21,6 @@ const schema = mongoose.Schema(
   },
 );
 
-const Post = mongoose.model("Post", schema);
+const post = mongoose.model("Post", schema);
 
-module.exports = Post;
+module.exports = post;

@@ -10,8 +10,6 @@ const {
   remove,
   profile,
 } = require("../controllers/postController");
-const errHandler = require("../middleware/errHandler.js");
-const notFound = require("../middleware/pageNotFound.js");
 
 const ensureToken = require("../middleware/ensureToken");
 
@@ -23,8 +21,6 @@ Router.route("/posts").get(show).post(add);
 
 Router.route("/posts/:id").put(update).delete(remove);
 
-Router.use(notFound);
 
-Router.use(errHandler);
 
 module.exports = Router;
