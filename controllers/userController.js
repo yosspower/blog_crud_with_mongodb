@@ -20,9 +20,10 @@ async function login(req, res) {
     return res.status(400).send({ msg: "Invalid Password!" });
   }
 
-  const btoken = jwt.sign({ email: req.body.email }, secret_key, {
+  const btoken = jwt.sign({ userId: user._id }, secret_key, {
     expiresIn: "24h",
   });
+
   let token = "Bearer " + btoken;
 
   res.send(token);
@@ -75,15 +76,7 @@ async function register(req, res) {
   newUser
     .save()
     .then(() => {
-      const btoken = jwt.sign(
-        { email: req.body.email, role: "user" },
-        secret_key,
-        {
-          expiresIn: "24h",
-        },
-      );
-      let token = "Bearer " + btoken;
-      res.send(token);
+      res.redirect("/login");
     })
     .catch((err) => {
       res.send(err.message);

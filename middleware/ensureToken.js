@@ -13,7 +13,7 @@ function ensureToken(req, res, next) {
       if (err) {
         return res.redirect("/login");
       }
-      req.userEmail = data.email;
+      req.userId = data.userId;
 
       next();
     });

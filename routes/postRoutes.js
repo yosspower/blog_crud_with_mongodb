@@ -12,6 +12,7 @@ const {
 } = require("../controllers/postController");
 
 const ensureToken = require("../middleware/ensureToken");
+const isAllowed = require("../middleware/isAllowed");
 
 Router.use(ensureToken);
 
@@ -19,8 +20,6 @@ Router.get("/", profile);
 
 Router.route("/posts").get(show).post(add);
 
-Router.route("/posts/:id").put(update).delete(remove);
-
-
+Router.route("/posts/:id").put(isAllowed, update).delete(isAllowed, remove);
 
 module.exports = Router;
