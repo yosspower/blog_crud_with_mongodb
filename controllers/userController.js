@@ -13,11 +13,11 @@ async function login(req, res) {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(400).send({ msg: "User not found" });
+    return res.status(400).json({ msg: "User not found" });
   }
   const isPassword = await bcrypt.compareSync(password, user.password);
   if (!isPassword) {
-    return res.status(400).send({ msg: "Invalid Password!" });
+    return res.status(400).json({ msg: "Invalid Password!" });
   }
 
   const btoken = jwt.sign({ userId: user._id }, secret_key, {
@@ -26,7 +26,7 @@ async function login(req, res) {
 
   let token = "Bearer " + btoken;
 
-  res.send(token);
+  res.json({jwtToken:token});
 }
 function loginPage(req, res) {
   res.send(`
@@ -64,7 +64,7 @@ async function register(req, res) {
   const { name, email, password } = req.body;
   const ifUserExists = await User.findOne({ email: email });
   if (ifUserExists) {
-    return res.send("user already exists");
+    return res.json({message:"user already exists"});
   }
   const hashePasswrd = await bcrypt.hash(password, 10);
   const newUser = await new User({
@@ -79,7 +79,7 @@ async function register(req, res) {
       res.redirect("/login");
     })
     .catch((err) => {
-      res.send(err.message);
+      res.json({error:err.message});
     });
 }
 

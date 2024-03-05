@@ -20,7 +20,7 @@ app.use("/register", registerRouter);
 app.use("/profile", postRouter);
 
 app.get("/", (req, res) => {
-  res.send("welcome user go to /login");
+  res.json({ message: "welcome user go to /login" });
 });
 app.get("/posts", allPosts);
 

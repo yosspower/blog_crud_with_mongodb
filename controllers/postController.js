@@ -9,36 +9,29 @@ async function getUser(userId) {
 }
 async function allPosts(req, res) {
   const posts = await Post.find();
-  let output = "<h1>ALL POSTS</h1>\n";
-  posts.forEach((post) => {
-    output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n  <hr>`;
-  });
 
-  return res.send(output);
+
+  return res.json({posts:posts});
 }
 async function show(req, res) {
   Post.find({ userId: req.userId })
     .then((posts) => {
       if (posts.length <= 0) {
-        return res.status(404).send("No posts posted yet!!.");
+        return res.status(404).json({message:"No posts posted yet!!."});
       }
-      let output = "<h1>YOUR POSTS</h1>\n";
 
-      posts.forEach((post) => {
-        output += `<p> <h3> ${post.title} </h3> <strong> content of post :   </strong>${post.content}</p> \n  <hr>`;
-      });
-      res.send(output);
+      res.json({posts:posts});
     })
     .catch((err) => {
-      res.send(err.message);
+      res.json({error:err.message});
     });
 }
 async function profile(req, res) {
   try {
     const user = await getUser(req.userId);
-    res.send(`welcome ${user.name} role : ${user.role}`);
+    res.json({message:`welcome ${user.name} role : ${user.role}`});
   } catch {
-    res.send("server Error !");
+    res.json({error:"server Error !"});
   }
 }
 async function add(req, res) {
@@ -52,7 +45,7 @@ async function add(req, res) {
     newPost
       .save()
       .then((user) => {
-        res.send("Post added succesfully");
+        res.json({message:"Post added succesfully"});
       })
       .catch((err) => {
         res.status(401).json({ message: err.message });
@@ -73,20 +66,20 @@ async function update(req, res) {
     },
   )
     .then((post) => {
-      return res.send("post Updated! " + post._id);
+      return res.json({message:"post Updated! " + post._id});
     })
     .catch((err) => {
-      return res.status(400).send("Cannot Update this  post!");
+      return res.status(400).json({error:"Cannot Update this  post!"});
     });
 }
 
 async function remove(req, res) {
   Post.findOneAndDelete({ _id: req.postId })
     .then((post) => {
-      return res.send("post deleted! id: " + post._id);
+      return res.json({message:"post deleted! id: " + post._id});
     })
     .catch((err) => {
-      res.status(400).send(err.message);
+      res.status(400).json({error:err.message});
     });
 }
 
