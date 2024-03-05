@@ -15,8 +15,7 @@ async function isAllowed(req, res, next) {
         .json({ msg: "You are not allowed to do this action" });
     }
   } catch (err) {
-    return res.status(403)
-    .json({ msg: "Post does not exist" });
+    return res.status(403).json({ msg: "Post does not exist" });
   }
 }
 

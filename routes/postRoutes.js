@@ -9,6 +9,7 @@ const {
   update,
   remove,
   profile,
+  addPage,
 } = require("../controllers/postController");
 
 const ensureToken = require("../middleware/ensureToken");
@@ -17,6 +18,8 @@ const isAllowed = require("../middleware/isAllowed");
 Router.use(ensureToken);
 
 Router.get("/", profile);
+
+Router.get("/add-post", addPage);
 
 Router.route("/posts").get(show).post(add);
 

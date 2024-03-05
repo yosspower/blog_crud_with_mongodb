@@ -25,8 +25,10 @@ async function login(req, res) {
   });
 
   let token = "Bearer " + btoken;
-
-  res.json({jwtToken:token});
+  res.cookie("jwt_token", token, {
+    maxAge: 1000 * 60 * 60 * 24,
+  });
+  res.json({ mssg: "you are authenticated " });
 }
 function loginPage(req, res) {
   res.send(`
@@ -64,7 +66,7 @@ async function register(req, res) {
   const { name, email, password } = req.body;
   const ifUserExists = await User.findOne({ email: email });
   if (ifUserExists) {
-    return res.json({message:"user already exists"});
+    return res.json({ message: "user already exists" });
   }
   const hashePasswrd = await bcrypt.hash(password, 10);
   const newUser = await new User({
@@ -79,7 +81,7 @@ async function register(req, res) {
       res.redirect("/login");
     })
     .catch((err) => {
-      res.json({error:err.message});
+      res.json({ error: err.message });
     });
 }
 

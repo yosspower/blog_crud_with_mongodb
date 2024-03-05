@@ -29,7 +29,7 @@ node app.js or nodemon (if you have installed it)
 
 3.go to `/register` and enter your information so you can get the jwt token generated or `/login` if you already have an account
 
-4. copy the generated token in postman header and send a request to any `/profile` prefixed url protected by ensureToken middleware
+4.after succesfully authenticated you need to refresh the page you will be redirected to /profile
 
 5. You can perform CRUD operations using the following endpoints:
    - `GET /profile`:profile page that displays all posts posted by user.
@@ -45,6 +45,7 @@ node app.js or nodemon (if you have installed it)
 - `controllers/userController.js`: Controller functions for handling user authentification systeme.
 - `middleware/errHandler.js`: Error handling middleware.
 - `middleware/isAuth.js`: middleware for redirecting authentificated users back to profile .
+- `middleware/isAlowed.js`: middleware for checking if a user allowed to modify or delete that specific post .
 - `middleware/ensureToken.js`: middleware for stopping non-authentificated users from accessing routes that require authentication.
 - `middleware/log.js`: Log middleware that logs each request to the log.md file with the specific user.
 - `middleware/pageNotFound.js`: Middleware for handling 404 errors.
