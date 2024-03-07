@@ -1,5 +1,5 @@
 function errHandler(err, req, res, next) {
-  console.log("Error handler called:", err.message);
-  res.json({ message: err.message || "Server error" });
+  console.log(err);
+  res.json({ message: "Server error" });
 }
 module.exports = errHandler;

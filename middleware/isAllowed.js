@@ -5,8 +5,7 @@ async function isAllowed(req, res, next) {
   const userId = req.userId;
   try {
     const post = await Post.findOne({ _id: req.params.id });
-    const user = await User.findOne({ _id: userId });
-    if (post.userId == req.userId || user.role == "admin") {
+    if (post.userId == req.userId || req.userRole == "admin") {
       req.postId = post._id;
       next();
     } else {

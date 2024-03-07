@@ -7,7 +7,6 @@ const { login, loginPage } = require("../controllers/userController");
 
 router.use(isAuth);
 
-router.use(express.urlencoded({ extended: true }));
 // /login :post methode
 router.post(
   "/",

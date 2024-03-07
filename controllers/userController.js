@@ -20,14 +20,14 @@ async function login(req, res) {
     return res.status(400).json({ msg: "Invalid Password!" });
   }
 
-  const btoken = jwt.sign({ userId: user._id }, secret_key, {
-    expiresIn: "24h",
-  });
-
-  let token = "Bearer " + btoken;
-  res.cookie("jwt_token", token, {
-    maxAge: 1000 * 60 * 60 * 24,
-  });
+  const token = jwt.sign(
+    { userId: user._id, userRole: user.role },
+    secret_key,
+    {
+      expiresIn: "48h",
+    },
+  );
+  req.session.token = token;
   res.json({ mssg: "you are authenticated " });
 }
 function loginPage(req, res) {
