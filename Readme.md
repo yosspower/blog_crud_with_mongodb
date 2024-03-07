@@ -34,12 +34,13 @@ node app.js or nodemon (if you have installed it)
 5. to turn on admin access for a user go to `http://localhost:3000/profile/turn-admin` and enter the code which is `1234`
 
 5.what you can do :
-----> You can perform CRUD operations using the following endpoints(admin/user) :
 
-- `GET profile/posts`: Retrieve all posts.
-- `POST profile/posts`: Create a new post.
-- `PUT profile/posts/:id`: Update an existing post.
-- `DELETE profile/posts/:id`: Delete a post by ID.
+  ----> You can perform CRUD operations using the following endpoints(admin/user) :
+
+  - `GET profile/posts`: Retrieve all posts.
+  - `POST profile/posts`: Create a new post.
+  - `PUT profile/posts/:id`: Update an existing post.
+  - `DELETE profile/posts/:id`: Delete a post by ID.
 
   ----> You can see all posts(all) :
 
