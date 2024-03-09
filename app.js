@@ -23,8 +23,6 @@ app.use(
   }),
 );
 
-const jwt = require("jsonwebtoken");
-const secret_key = "enji122u3u31g12tf21f31";
 Connect();
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies (with some limitations)

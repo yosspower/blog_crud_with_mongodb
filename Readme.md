@@ -1,6 +1,9 @@
 # Simple CRUD Application with Express.js and MONGODB
-## authentication 
--this application uses  jsonwebtoken && sessions for user authentication
+
+## authentication
+
+-this application uses jsonwebtoken && sessions for user authentication
+
 ## Installation
 
 1. Clone this repository to your local machine:
@@ -35,18 +38,18 @@ node app.js or nodemon (if you have installed it)
 
 5.what you can do :
 
-  ----> You can perform CRUD operations using the following endpoints(admin/user) :
+----> You can perform CRUD operations using the following endpoints(admin/user) :
 
-  - `GET profile/posts`: Retrieve all posts.
-  - `POST profile/posts`: Create a new post.
-  - `PUT profile/posts/:id`: Update an existing post.
-  - `DELETE profile/posts/:id`: Delete a post by ID.
+- `GET profile/posts`: Retrieve all posts.
+- `POST profile/posts`: Create a new post.
+- `PUT profile/posts/:id`: Update an existing post.
+- `DELETE profile/posts/:id`: Delete a post by ID.
 
-  ----> You can see all posts(all) :
+----> You can see all posts(all) :
 
-  - Go to `http://localhost:3000/posts`
+- Go to `http://localhost:3000/posts`
 
-    6.Finaly, if you want to logout just go to `http://localhost:3000/logout`
+  6.Finaly, if you want to logout just go to `http://localhost:3000/logout`
 
 ## File Structure
 

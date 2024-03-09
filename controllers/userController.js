@@ -2,7 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
-const secret_key = "enji122u3u31g12tf21f31";
+require("dotenv").config();
 async function login(req, res) {
   const error = validationResult(req);
   if (!error.isEmpty()) {
@@ -22,7 +22,7 @@ async function login(req, res) {
 
   const token = jwt.sign(
     { userId: user._id, userRole: user.role },
-    secret_key,
+    process.env.SECRECT_KEY,
     {
       expiresIn: "48h",
     },

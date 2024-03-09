@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
-const secret_key = "enji122u3u31g12tf21f31";
+require("dotenv").config();
 function isAuth(req, res, next) {
   const token = req.session.token;
   if (typeof token !== "undefined") {
-    jwt.verify(token, secret_key, (err, data) => {
+    jwt.verify(token, process.env.SECRECT_KEY, (err, data) => {
       if (err) {
         console.log(err);
         next();
